@@ -13,10 +13,10 @@ namespace QuikMeds
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class Entities : DbContext
+    public partial class CTXEntities : DbContext
     {
-        public Entities()
-            : base("name=Entities")
+        public CTXEntities()
+            : base("name=CTXEntities")
         {
         }
     

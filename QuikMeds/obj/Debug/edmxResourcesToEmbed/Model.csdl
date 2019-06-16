@@ -137,7 +137,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+  <EntityContainer Name="CTXEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Customers" EntityType="Self.Customer" />
     <EntitySet Name="Order_Products" EntityType="Self.Order_Products" />
     <EntitySet Name="Orders" EntityType="Self.Order" />
