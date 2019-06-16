@@ -2,30 +2,66 @@
     ViewBag.Title = "Home Page";
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+<h2>Products</h2>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+<form action="/Home/Category" method="get" id="category" class="option">
+    <span>Category</span>
+    <select id="catName" class="form-control" name="catName" onchange="$('#category').submit()">
+            <option>-- Select --</option>
+            <option value="">All</option>
+            <option value="Tablet">Tablet</option>
+            <option value="Kettles">Kettles</option>
+            <option value="Microwaves">Microwaves</option>
+        </select>
+</form>
+
+@if (ViewBag.Products.Count == 0)
+{
+    <br/>
+    <div id="EmptyDataMsg" class="alert alert-info">
+        <strong>Welcome!</strong> Our shop is currently empty.
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+}
+else
+{
+    <div class="list-view">
+        @foreach (var item in ViewBag.Products)
+        {
+            <div class="list-item">
+                <span class="p-cart">@item.Category</span>
+                <span class="p-brand">@item.Brand</span>
+                <span class="p-name">@item.PName</span>
+                <span class="p-description">@item.Description</span>
+
+                <div class="add-to-cart">
+                    @Html.ActionLink("add to cart", "AddToCart", "Home", new { id = item.PID }, null)
+                    <span class="p-price">@String.Format("{0:c}", item.UnitPrice)</span>
+                </div>
+                <span class="p-unit">
+                    @item.UnitsInStock
+                @if (item.UnitsInStock > 1)
+                {
+                    <text>units</text>
+                }
+                else
+                {
+                    <text>unit</text>
+                }
+            </span>
+        </div>
+        }
     </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
-</div>
+}
+
+
+
+@*<tr>
+    <td>@item.pname</td>
+    <td>@string.format("{0:c}", item.unitprice)</td>
+    <td>
+       <a class="quantity" onclick="change(this, 1, @item.pid)">+</a>
+        <span>@item.quantity</span>
+        <a class="quantity" onclick="change(this, 0, @item.pid)">-</a>
+        <a class="remove" onclick="change(this, -1, @item.pid)">remove</a>
+    </td>
+</tr>*@

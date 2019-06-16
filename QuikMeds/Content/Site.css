@@ -22,3 +22,20 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.navbar-theme {
+    background: #000033;
+    font-weight: bold;
+}
+
+    .navbar-theme a {
+        color: #fff
+    }
+
+.nav > li > a:hover, .nav > li > a:focus {
+    background: rgba(255, 255, 255, .2);
+}
+
+.navbar-brand {
+    font-size: 1.5em
+}
