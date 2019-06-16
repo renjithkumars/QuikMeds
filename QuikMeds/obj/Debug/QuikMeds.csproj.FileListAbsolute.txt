@@ -40,3 +40,7 @@ C:\Users\Lenovo\source\repos\QuikMeds\QuikMeds\obj\Debug\QuikMeds.csprojResolveA
 C:\Users\Lenovo\source\repos\QuikMeds\QuikMeds\obj\Debug\QuikMeds.csproj.CoreCompileInputs.cache
 C:\Users\Lenovo\source\repos\QuikMeds\QuikMeds\obj\Debug\QuikMeds.dll
 C:\Users\Lenovo\source\repos\QuikMeds\QuikMeds\obj\Debug\QuikMeds.pdb
+C:\Users\Lenovo\source\repos\QuikMeds\QuikMeds\bin\EntityFramework.dll
+C:\Users\Lenovo\source\repos\QuikMeds\QuikMeds\bin\EntityFramework.SqlServer.dll
+C:\Users\Lenovo\source\repos\QuikMeds\QuikMeds\bin\EntityFramework.xml
+C:\Users\Lenovo\source\repos\QuikMeds\QuikMeds\bin\EntityFramework.SqlServer.xml
