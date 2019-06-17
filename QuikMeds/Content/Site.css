@@ -39,3 +39,79 @@ textarea {
 .navbar-brand {
     font-size: 1.5em
 }
+
+/* Home page */
+.basket {
+    font-weight: bold;
+    font-size: .8em;
+    float: right;
+    padding: 20px;
+    background: none;
+    border: 1px solid #000033;
+    color: #252625;
+    letter-spacing: normal;
+    position: relative;
+}
+
+    .basket:hover {
+        background: #c9d6c5
+    }
+
+    .basket span {
+        margin-right: 5px;
+        margin-left: -20px;
+        padding: 20px;
+        text-transform: uppercase;
+    }
+
+    .basket table {
+        position: absolute;
+        margin-top: 20px;
+        right: -1px;
+        display: none;
+        border: 1px solid #252625;
+        background: #fff;
+        color: #808080;
+        z-index: 3;
+        letter-spacing: normal;
+        text-transform: none;
+    }
+
+    .basket:hover table {
+        display: table
+    }
+
+    .basket table tr {
+        transition: .3s;
+        -webkit-transition: .3s;
+        padding: 20px
+    }
+
+        .basket table tr:hover {
+            opacity: .5
+        }
+
+        .basket table tr:last-child:hover {
+            opacity: 1
+        }
+
+        .basket table tr:last-child a {
+            padding: 10px 20px;
+            float: right;
+            color: #252625;
+            opacity: .7;
+            transition: .3s;
+            font-weight: bold;
+            letter-spacing: normal;
+            -webkit-transition: .3s;
+        }
+
+            .basket table tr:last-child a:hover {
+                opacity: 1;
+                background: #2dbb9b;
+                color: #fff
+            }
+
+    .basket table td {
+        padding: 10px 20px;
+    }

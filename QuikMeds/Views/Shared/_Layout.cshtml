@@ -33,7 +33,7 @@
             <span>Your Basket: </span> @ViewBag.CartUnits
             <table>
                 @foreach (var c in ViewBag.Cart) {
-                    <tr><td>@c.Quantity x @String.Format("{0:c}", c.UnitPrice)</td><td>@c.PName</td></tr>
+                    <tr><td>@c.Quantity x (@String.Format("{0:c}", c.UnitPrice)</td><td>@c.PName</td></tr>
                 }
                 <tr>
                     <td>Total: @String.Format("{0:c}", ViewBag.CartTotalPrice)</td>
