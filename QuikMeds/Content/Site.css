@@ -29,7 +29,7 @@ textarea {
 }
 
     .navbar-theme a {
-        color: #fff
+        color: #fff;
     }
 
 .nav > li > a:hover, .nav > li > a:focus {
@@ -37,7 +37,7 @@ textarea {
 }
 
 .navbar-brand {
-    font-size: 1.5em
+    font-size: 1.5em;
 }
 
 /* Home page */
@@ -54,7 +54,7 @@ textarea {
 }
 
     .basket:hover {
-        background: #c9d6c5
+        background: #c9d6c5;
     }
 
     .basket span {
@@ -78,21 +78,21 @@ textarea {
     }
 
     .basket:hover table {
-        display: table
+        display: table;
     }
 
     .basket table tr {
         transition: .3s;
         -webkit-transition: .3s;
-        padding: 20px
+        padding: 20px;
     }
 
         .basket table tr:hover {
-            opacity: .5
+            opacity: .5;
         }
 
         .basket table tr:last-child:hover {
-            opacity: 1
+            opacity: 1;
         }
 
         .basket table tr:last-child a {
@@ -108,8 +108,8 @@ textarea {
 
             .basket table tr:last-child a:hover {
                 opacity: 1;
-                background: #2dbb9b;
-                color: #fff
+                background: #e9e3f7;
+                color: #2c2144;
             }
 
     .basket table td {

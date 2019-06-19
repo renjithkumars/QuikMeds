@@ -3,6 +3,8 @@ C:\Users\Lenovo\source\repos\QuikMeds\QuikMeds\bin\QuikMeds.dll.config
 C:\Users\Lenovo\source\repos\QuikMeds\QuikMeds\bin\QuikMeds.dll
 C:\Users\Lenovo\source\repos\QuikMeds\QuikMeds\bin\QuikMeds.pdb
 C:\Users\Lenovo\source\repos\QuikMeds\QuikMeds\bin\Antlr3.Runtime.dll
+C:\Users\Lenovo\source\repos\QuikMeds\QuikMeds\bin\EntityFramework.dll
+C:\Users\Lenovo\source\repos\QuikMeds\QuikMeds\bin\EntityFramework.SqlServer.dll
 C:\Users\Lenovo\source\repos\QuikMeds\QuikMeds\bin\Microsoft.AI.Agent.Intercept.dll
 C:\Users\Lenovo\source\repos\QuikMeds\QuikMeds\bin\Microsoft.AI.DependencyCollector.dll
 C:\Users\Lenovo\source\repos\QuikMeds\QuikMeds\bin\Microsoft.AI.PerfCounterCollector.dll
@@ -21,6 +23,8 @@ C:\Users\Lenovo\source\repos\QuikMeds\QuikMeds\bin\System.Web.WebPages.Deploymen
 C:\Users\Lenovo\source\repos\QuikMeds\QuikMeds\bin\System.Web.WebPages.dll
 C:\Users\Lenovo\source\repos\QuikMeds\QuikMeds\bin\System.Web.WebPages.Razor.dll
 C:\Users\Lenovo\source\repos\QuikMeds\QuikMeds\bin\WebGrease.dll
+C:\Users\Lenovo\source\repos\QuikMeds\QuikMeds\bin\EntityFramework.xml
+C:\Users\Lenovo\source\repos\QuikMeds\QuikMeds\bin\EntityFramework.SqlServer.xml
 C:\Users\Lenovo\source\repos\QuikMeds\QuikMeds\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 C:\Users\Lenovo\source\repos\QuikMeds\QuikMeds\bin\System.Web.Helpers.xml
 C:\Users\Lenovo\source\repos\QuikMeds\QuikMeds\bin\System.Web.Mvc.xml
@@ -36,11 +40,7 @@ C:\Users\Lenovo\source\repos\QuikMeds\QuikMeds\bin\Microsoft.AI.DependencyCollec
 C:\Users\Lenovo\source\repos\QuikMeds\QuikMeds\bin\Microsoft.AI.ServerTelemetryChannel.xml
 C:\Users\Lenovo\source\repos\QuikMeds\QuikMeds\bin\Microsoft.AI.WindowsServer.xml
 C:\Users\Lenovo\source\repos\QuikMeds\QuikMeds\bin\Microsoft.AI.Web.xml
-C:\Users\Lenovo\source\repos\QuikMeds\QuikMeds\obj\Debug\QuikMeds.csprojResolveAssemblyReference.cache
 C:\Users\Lenovo\source\repos\QuikMeds\QuikMeds\obj\Debug\QuikMeds.csproj.CoreCompileInputs.cache
 C:\Users\Lenovo\source\repos\QuikMeds\QuikMeds\obj\Debug\QuikMeds.dll
 C:\Users\Lenovo\source\repos\QuikMeds\QuikMeds\obj\Debug\QuikMeds.pdb
-C:\Users\Lenovo\source\repos\QuikMeds\QuikMeds\bin\EntityFramework.dll
-C:\Users\Lenovo\source\repos\QuikMeds\QuikMeds\bin\EntityFramework.SqlServer.dll
-C:\Users\Lenovo\source\repos\QuikMeds\QuikMeds\bin\EntityFramework.xml
-C:\Users\Lenovo\source\repos\QuikMeds\QuikMeds\bin\EntityFramework.SqlServer.xml
+C:\Users\Lenovo\source\repos\QuikMeds\QuikMeds\obj\Debug\QuikMeds.csprojResolveAssemblyReference.cache
