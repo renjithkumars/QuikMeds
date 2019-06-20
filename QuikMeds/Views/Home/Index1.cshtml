@@ -1,34 +1,27 @@
-﻿@{
-    ViewBag.Title = "Home Page";
-}
-
-<h2>Products</h2>
-
-<form action="/Home/Category" method="get" id="category" class="option">
-    <span>Category</span>
-    <select id="catName" class="form-control" name="catName" onchange="$('#category').submit()">
+﻿<form action="/Home/Content" method="get" id="content" class="option">
+    <span>Content</span>
+    <select id="discription " class="form-control" name="discription" onchange="$('#content').submit()">
         <option>-- Select --</option>
         <option value="">All</option>
+
         @{
         string my_item = "";
         }
-         @foreach (var item in ViewBag.Products)
+        @foreach (var item in ViewBag.Products)
 
-         {
-        
-            if (my_item != item.Category)
-            {
-            <option value="@item.Category">@item.Category</option>
+          {
 
-             }
-            my_item = item.Category;
-        
-             
-}
+            if (my_item != item.Description)
+                {
+                    <option value="@item.Description">@item.Description</option>
+
+                }
+                my_item = item.Description;
+   
+          }
 
     </select>
 </form>
-
 
 
 @if (ViewBag.Products.Count == 0)
@@ -69,15 +62,3 @@ else
     </div>
 }
 
-
-
-@*<tr>
-    <td>@item.pname</td>
-    <td>@string.format("{0:c}", item.unitprice)</td>
-    <td>
-       <a class="quantity" onclick="change(this, 1, @item.pid)">+</a>
-        <span>@item.quantity</span>
-        <a class="quantity" onclick="change(this, 0, @item.pid)">-</a>
-        <a class="remove" onclick="change(this, -1, @item.pid)">remove</a>
-    </td>
-</tr>*@

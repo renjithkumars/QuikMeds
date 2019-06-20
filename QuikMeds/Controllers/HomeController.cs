@@ -16,6 +16,14 @@ namespace QuikMeds.Controllers
             ViewBag.Products = products;
             return View();
         }
+        public ActionResult Index1()
+        {
+            List<Product> products = _ctx.Products.ToList<Product>();
+            ViewBag.Products = products;
+            return View();
+
+        }
+
 
         public ActionResult Category(string catName)
         {
@@ -23,10 +31,33 @@ namespace QuikMeds.Controllers
             if (catName == "")
             {
                 products = _ctx.Products.ToList<Product>();
+                try
+                {
+                    return RedirectToAction("Index");
+                }
+                catch (Exception ex)
+                {
+                    return View("Error", new HandleErrorInfo(ex, "EmployeeInfo", "Create"));
+                }
             }
             else
             {
                 products = _ctx.Products.Where(p => p.Category == catName).ToList<Product>();
+            }
+            ViewBag.Products = products;
+            return View("Index1");
+        }
+
+        public ActionResult Content(string discription)
+        {
+            List<Product> products;
+            if (discription == "")
+            {
+                products = _ctx.Products.ToList<Product>();
+            }
+            else
+            {
+                products = _ctx.Products.Where(p => p.Description == discription).ToList<Product>();
             }
             ViewBag.Products = products;
             return View("Index");
