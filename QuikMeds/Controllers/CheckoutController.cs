@@ -17,7 +17,48 @@ namespace QuikMeds.Controllers
             return View();
         }
 
-        
+        public JsonResult QuanityChange(int type, int pId)
+        {
+            CTXEntities context = new CTXEntities();
+
+            ShoppingCartData product = context.ShoppingCartDatas.FirstOrDefault(p => p.PID == pId);
+            if (product == null)
+            {
+                return Json(new { d = "0" });
+            }
+
+            Product actualProduct = context.Products.FirstOrDefault(p => p.PID == pId);
+            int quantity;
+            // if type 0, decrease quantity
+            // if type 1, increase quanity
+            switch (type)
+            {
+                case 0:
+                    product.Quantity--;
+                    actualProduct.UnitsInStock++;
+                    break;
+                case 1:
+                    product.Quantity++;
+                    actualProduct.UnitsInStock--;
+                    break;
+                
+                default:
+                    return Json(new { d = "0" });
+            }
+
+            if (product.Quantity == 0)
+            {
+                context.ShoppingCartDatas.Remove(product);
+                quantity = 0;
+            }
+            else
+            {
+                quantity = product.Quantity;
+            }
+
+            context.SaveChanges();
+            return Json(new { d = quantity });
+        }
 
         [HttpGet]
         public JsonResult UpdateTotal()
@@ -34,7 +75,21 @@ namespace QuikMeds.Controllers
             return Json(new { d = String.Format("{0:c}", total) }, JsonRequestBehavior.AllowGet);
         }
 
-        
+        public ActionResult Clear()
+        {
+            try
+            {
+                List<ShoppingCartData> carts = _ctx.ShoppingCartDatas.ToList();
+                carts.ForEach(a => {
+                    Product product = _ctx.Products.FirstOrDefault(p => p.PID == a.PID);
+                    product.UnitsInStock += a.Quantity;
+                });
+                _ctx.ShoppingCartDatas.RemoveRange(carts);
+                _ctx.SaveChanges();
+            }
+            catch (Exception) { }
+            return RedirectToAction("Index", "Home", null);
+        }
 
 
     }
