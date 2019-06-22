@@ -63,10 +63,11 @@ else
                 <td><span class="p-name">@item.PName</span> </td>
                 <td><span class="p-name">@String.Format("{0:c}", item.UnitPrice)</span> </td>
                 <td>
-                    <a class="quantity" onclick="Change(this, 0, @item.PID)"> - </a>
+                    <a class="quantity" onclick="Change(this, 0, @item.PID)"> -  </a>
                     <span class="p-name">@item.Quantity</span>
-                    <a class="quantity" onclick="Change(this, 0,  @item.PID)"> + </a>
-                    
+                    <a class="quantity" onclick="Change(this, 1,  @item.PID)"> + </a>
+                    <a class="remove" onclick="Change(this, -1,  @item.PID)"> Remove </a>
+
                 </td>
             </tr>
         }
@@ -74,6 +75,6 @@ else
     </table>
     <div class="button">
         @Html.ActionLink("Clear Cart", "Clear", "Checkout", null, new { @class = "btn btn-default" })
-       
+        @Html.ActionLink("Countinue", "Purchase", "Checkout", null, new { @class = "btn btn-info" })
     </div>
 }

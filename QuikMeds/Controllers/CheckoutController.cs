@@ -41,7 +41,11 @@ namespace QuikMeds.Controllers
                     product.Quantity++;
                     actualProduct.UnitsInStock--;
                     break;
-                
+                case -1:
+                    actualProduct.UnitsInStock += product.Quantity;
+                    product.Quantity = 0;
+                    break;
+
                 default:
                     return Json(new { d = "0" });
             }
