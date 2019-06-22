@@ -8,7 +8,28 @@ namespace QuikMeds.Controllers
 {
     public class CheckoutController : BaseController
     {
+        private List<object> states;
+        private List<object> cards;
 
+        public CheckoutController()
+        {
+            states = new List<object> {
+                new { SID = "DBL", SName = "DUBLIN" },
+                new { SID = "VIC", SName = "VICLAW" },
+                new { SID = "KLD", SName = "KILDARE" },
+                new { SID = "GLW", SName = "GALWAY" },
+                new { SID = "CRK", SName = "CORK" },
+                new { SID = "WTD", SName = "WATERFORD" }
+
+            };
+
+            cards = new List<object> {
+                new { Type = "VISA" },
+                new { Type = "Master Card" },
+                new { Type = "Mastero" }
+            };
+
+        }
 
         // GET: Checkout
         public ActionResult Index()
@@ -45,7 +66,6 @@ namespace QuikMeds.Controllers
                     actualProduct.UnitsInStock += product.Quantity;
                     product.Quantity = 0;
                     break;
-
                 default:
                     return Json(new { d = "0" });
             }
@@ -95,6 +115,104 @@ namespace QuikMeds.Controllers
             return RedirectToAction("Index", "Home", null);
         }
 
+        public ActionResult Purchase()
+        {
+            ViewBag.States = states;
+            ViewBag.Cards = cards;
 
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Purchase(QuikMeds.Models.Customer customer)
+        {
+            ViewBag.States = states;
+            ViewBag.Cards = cards;
+
+            if (ModelState.IsValid)
+            {
+                if (customer.ExpDate <= DateTime.Now)
+                {
+                    ModelState.AddModelError("", "Credit card has already expired");
+                }
+
+                if (customer.Ctype == "AMEX")
+                {
+                    if (customer.CardNo.Length != 15)
+                    {
+                        ModelState.AddModelError("", "AMEX must be 15 digits");
+                    }
+                }
+                else
+                {
+                    if (customer.CardNo.Length != 16)
+                    {
+                        ModelState.AddModelError("", customer.Ctype + "must be 16 digits");
+                    }
+                }
+
+                if (ModelState.IsValid)
+                {
+                    Customer c = new Customer
+                    {
+                        FName = customer.FName,
+                        LName = customer.LName,
+                        Email = customer.Email,
+                        Phone = customer.Phone,
+                        Address1 = customer.Address1,
+                        Address2 = customer.Address2,
+                        Suburb = customer.Suburb,
+                        Postcode = customer.Postcode,
+                        State = customer.State,
+                        Ctype = customer.Ctype,
+                        CardNo = customer.CardNo,
+                        ExpDate = customer.ExpDate
+                    };
+
+                    Order o = new Order
+                    {
+                        OrderDate = DateTime.Now,
+                        DeliveryDate = DateTime.Now.AddDays(5),
+                        CID = c.CID
+                    };
+
+                    _ctx.Customers.Add(c);
+                    _ctx.Orders.Add(o);
+
+                    foreach (var i in _ctx.ShoppingCartDatas.ToList<ShoppingCartData>())
+                    {
+                        _ctx.Order_Products.Add(new Order_Products
+                        {
+                            OrderID = o.OrderID,
+                            PID = i.PID,
+                            Qty = i.Quantity,
+                            TotalSale = i.Quantity * i.UnitPrice
+                        });
+                        _ctx.ShoppingCartDatas.Remove(i);
+                    }
+
+                    _ctx.SaveChanges();
+
+                    return RedirectToAction("PurchasedSuccess");
+
+                }
+            }
+
+            List<ModelError> errors = new List<ModelError>();
+            foreach (ModelState modelState in ViewData.ModelState.Values)
+            {
+                foreach (ModelError error in modelState.Errors)
+                {
+                    errors.Add(error);
+                }
+            }
+            return View(customer);
+        }
+
+        public ActionResult PurchasedSuccess()
+        {
+            return View();
+        }
     }
 }
