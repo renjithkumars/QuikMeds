@@ -137,20 +137,11 @@ namespace QuikMeds.Controllers
                     ModelState.AddModelError("", "Credit card has already expired");
                 }
 
-                if (customer.Ctype == "AMEX")
-                {
-                    if (customer.CardNo.Length != 15)
-                    {
-                        ModelState.AddModelError("", "AMEX must be 15 digits");
-                    }
-                }
-                else
-                {
-                    if (customer.CardNo.Length != 16)
+               if (customer.CardNo.Length != 16)
                     {
                         ModelState.AddModelError("", customer.Ctype + "must be 16 digits");
                     }
-                }
+             
 
                 if (ModelState.IsValid)
                 {
