@@ -48,7 +48,7 @@ namespace QuikMeds.Controllers
             return View("Index1");
         }
 
-        public ActionResult Content(string discription)
+        public ActionResult Contents(string discription)
         {
             List<Product> products;
             if (discription == "")
