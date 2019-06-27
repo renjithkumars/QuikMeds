@@ -265,3 +265,11 @@ textarea {
                 background: #ff6a00;
                 color: #fff;
             }
+.table {
+    font-family: Verdana, Arial, Sans-Serif;
+    font-size: 11px;
+    color: #333333;
+    border-width: 1px;
+    border-color: #999999;
+    border-collapse: collapse;
+}
