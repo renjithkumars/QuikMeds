@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="CTXModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="CTXModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Customers">
           <Key>
             <PropertyRef Name="CID" />
@@ -22,6 +22,18 @@
           <Property Name="CardNo" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="ExpDate" Type="datetime" Nullable="false" />
           <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CTX.dbo.Information' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Information">
+          <Key>
+            <PropertyRef Name="Category" />
+            <PropertyRef Name="Ussage" />
+          </Key>
+          <Property Name="Category" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Ussage" Type="varchar(max)" Nullable="false" />
+          <Property Name="Side_Effects" Type="varchar(max)" />
+          <Property Name="Additional_information" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Order_Products">
           <Key>
@@ -141,6 +153,14 @@
           <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ShoppingCartData" EntityType="Self.ShoppingCartData" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Suppliers" EntityType="Self.Suppliers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Information" EntityType="Self.Information" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Information].[Category] AS [Category], 
+    [Information].[Ussage] AS [Ussage], 
+    [Information].[Side_Effects] AS [Side_Effects], 
+    [Information].[Additional_information] AS [Additional_information]
+    FROM [dbo].[Information] AS [Information]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_Order_Products_Orders" Association="Self.FK_Order_Products_Orders">
             <End Role="Orders" EntitySet="Orders" />
             <End Role="Order_Products" EntitySet="Order_Products" />
@@ -158,8 +178,7 @@
             <End Role="Products" EntitySet="Products" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="CTXModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -323,7 +342,18 @@
             <End Role="Suppliers" EntitySet="Suppliers" />
             <End Role="Products" EntitySet="Products" />
           </AssociationSet>
+          <EntitySet Name="Information" EntityType="CTXModel.Information" />
         </EntityContainer>
+        <EntityType Name="Information">
+          <Key>
+            <PropertyRef Name="Category" />
+            <PropertyRef Name="Ussage" />
+          </Key>
+          <Property Name="Category" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Ussage" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Side_Effects" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Additional_information" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -407,6 +437,16 @@
                 <ScalarProperty Name="Suburb" ColumnName="Suburb" />
                 <ScalarProperty Name="State" ColumnName="State" />
                 <ScalarProperty Name="Postcode" ColumnName="Postcode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Information">
+            <EntityTypeMapping TypeName="CTXModel.Information">
+              <MappingFragment StoreEntitySet="Information">
+                <ScalarProperty Name="Additional_information" ColumnName="Additional_information" />
+                <ScalarProperty Name="Side_Effects" ColumnName="Side_Effects" />
+                <ScalarProperty Name="Ussage" ColumnName="Ussage" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

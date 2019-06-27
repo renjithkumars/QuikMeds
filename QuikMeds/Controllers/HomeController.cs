@@ -106,11 +106,26 @@ namespace QuikMeds.Controllers
             }
         }
 
-        public ActionResult About()
+        public ActionResult Informations()
         {
-            ViewBag.Message = "Your application description page.";
-
+            List<Information> product_details = _ctx.Information.ToList<Information>();
+            ViewBag.Products = product_details;
             return View();
+            
+        }
+        public ActionResult Information(string discription)
+        {
+            List<Information> product_details;
+            if (discription == "")
+            {
+               product_details = _ctx.Information.ToList<Information>();
+            }
+            else
+            {
+               product_details = _ctx.Information.Where(i => i.Category==discription).ToList<Information>();
+            }
+            ViewBag.Products = product_details;
+            return View("Informations");
         }
 
         public ActionResult Contact()

@@ -81,5 +81,15 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Information">
+      <EntityTypeMapping TypeName="CTXModel.Information">
+        <MappingFragment StoreEntitySet="Information">
+          <ScalarProperty Name="Additional_information" ColumnName="Additional_information" />
+          <ScalarProperty Name="Side_Effects" ColumnName="Side_Effects" />
+          <ScalarProperty Name="Ussage" ColumnName="Ussage" />
+          <ScalarProperty Name="Category" ColumnName="Category" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

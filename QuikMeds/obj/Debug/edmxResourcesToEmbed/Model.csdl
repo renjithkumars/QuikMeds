@@ -160,5 +160,16 @@
       <End Role="Suppliers" EntitySet="Suppliers" />
       <End Role="Products" EntitySet="Products" />
     </AssociationSet>
+    <EntitySet Name="Information" EntityType="CTXModel.Information" />
   </EntityContainer>
+  <EntityType Name="Information">
+    <Key>
+      <PropertyRef Name="Category" />
+      <PropertyRef Name="Ussage" />
+    </Key>
+    <Property Name="Category" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Ussage" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Side_Effects" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Additional_information" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
 </Schema>

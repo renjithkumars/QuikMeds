@@ -43,5 +43,10 @@ namespace QuikMeds.Controllers
             }
             return View();
         }
+        public ActionResult Details()
+        {
+            var detail = _ctx.Products.ToList();
+            return View(detail);
+        }
     }
 }

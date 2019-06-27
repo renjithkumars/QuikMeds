@@ -1,0 +1,67 @@
+﻿@model QuikMeds.Information
+
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    ViewBag.Title = "Home Page";
+}
+<h2>Products</h2>
+<form action="/Home/Information" method="get" id="Information" class="option">
+    <span>Category</span>
+    <select id="catName" class="form-control" name="catName" onchange="$('#Information).submit()">
+        <option>-- Select --</option>
+        <option value="">All</option>
+        @{
+            string my_item = "";
+        }
+        @foreach (var item in ViewBag.Products)
+
+        {
+
+            if (my_item != item.Category)
+            {
+                <option value="@item.Category">@item.Category</option>
+
+            }
+            my_item = item.Category;
+
+
+        }
+
+    </select>
+</form>
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Informations</title>
+</head>
+<body>
+    
+        @if (ViewBag.Products.Count == 0)
+    {
+        <br />
+        <div id="EmptyDataMsg" class="alert alert-info">
+            <strong>Welcome!</strong> Our shop is currently empty.
+        </div>
+}
+else
+{
+    <div class="list-view">
+        @foreach (var item in ViewBag.Products)
+    {
+        <div class="list-item">
+            <span class="p-cart">@item.Category</span>
+            <span class="p-brand">@item.Ussage</span>
+            <span class="p-name">@item.Side_Effects</span>
+            
+        </div>
+}
+    </div>
+}
+<</body>
+<</html>
