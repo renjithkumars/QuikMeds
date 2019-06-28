@@ -101,5 +101,36 @@ namespace QuikMeds.Controllers
 
             return View();
         }
+        [HttpGet]
+        public ActionResult Delete(int id)
+        {
+            var detail = _ctx.Products.Where(p => p.PID == id).Single();
+            return View(detail);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(QuikMeds.Product products)
+        {
+            if (ModelState.IsValid)
+            {
+                Product c = new Product
+                {
+                    
+                    PName = products.PName,
+                    Brand = products.Brand,
+                    UnitPrice = products.UnitPrice,
+                    UnitsInStock = products.UnitsInStock,
+                    Category = products.Category,
+                    Description = products.Description,
+                    SID = products.SID,
+                    ROL = products.ROL
+
+                };
+                _ctx.Entry(c).State = System.Data.Entity.EntityState.Deleted;
+                _ctx.SaveChanges();
+            }
+            return View("Index");
+        }
+
+        }
     }
-}
