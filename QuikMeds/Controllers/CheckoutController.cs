@@ -120,11 +120,14 @@ namespace QuikMeds.Controllers
         }
 
         public ActionResult Purchase()
-        {
+        { 
             ViewBag.States = states;
             ViewBag.Cards = cards;
-
-            return View();
+            if (Request.IsAuthenticated)
+            {
+                return View();
+            }
+            return RedirectToAction("Login","Account");
         }
 
         [HttpPost]

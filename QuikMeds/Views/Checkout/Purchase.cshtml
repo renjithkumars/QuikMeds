@@ -1,13 +1,12 @@
-﻿@using Microsoft.AspNet.Identity
+﻿
 @model QuikMeds.Models.Customer
 @{
     ViewBag.Title = "Purchase";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <h2>Purchase</h2>
-@if (Request.IsAuthenticated)
-{
-    using (Html.BeginForm())
+
+    @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
 
@@ -108,15 +107,6 @@
             </div>
         </div>
     }
-}
-else
-{
-    <h2>SORRY</h2>
-    <div class="alert alert-success">
-        PLEASE LOGIN.............
-    </div>
-}
-
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
