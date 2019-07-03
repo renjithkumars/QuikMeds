@@ -18,17 +18,17 @@ namespace QuikMeds.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-        private ApplicationRoleManager _roleManager;
+
 
         public AccountController()
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, ApplicationRoleManager roleManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
-            RoleManager = roleManager;
+
         }
 
         public ApplicationSignInManager SignInManager
@@ -55,16 +55,6 @@ namespace QuikMeds.Controllers
             }
         }
 
-        public ApplicationRoleManager RoleManager
-        {
-            get {
-                var role  = _roleManager ?? HttpContext.GetOwinContext().Get<ApplicationRoleManager>();
-                return role;
-            }
-            private set {
-                _roleManager = value;
-            }
-        }
 
         //
         // GET: /Account/Login
@@ -94,7 +84,7 @@ namespace QuikMeds.Controllers
             {
                 case SignInStatus.Success:
                     return RedirectToAction("Index", "Home");
-                              
+
                 case SignInStatus.Failure:
                 default:
                     ModelState.AddModelError("", "Invalid login attempt.");
@@ -102,7 +92,7 @@ namespace QuikMeds.Controllers
             }
         }
 
-       
+
         //
         // GET: /Account/Register
         [AllowAnonymous]
@@ -124,35 +114,18 @@ namespace QuikMeds.Controllers
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
 
-                if (result.Succeeded)
-                {
-                    var role = RoleManager.FindByName(roleAdmin);
-                    if (role == null)
-                    {
-                        role = new IdentityRole();
-                        var roleresult = RoleManager.Create(role);
-                    }
+                await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                return RedirectToAction("Index", "Home");
 
-                    var roleResult = await UserManager.AddToRoleAsync(user.Id, roleAdmin);
-                    if (!roleResult.Succeeded)
-                    {
-                        ModelState.AddModelError("", result.Errors.First());
-                        return View();
-                    } else
-                    {
-                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                        return View("Login","Account");
-                    }
-                }
-                AddErrors(result);
             }
 
+
             // If we got this far, something failed, redisplay form
-            return View("Login", "Account");
+            return RedirectToAction("Index", "Home");
         }
 
         //
-        
+
 
         //
         // POST: /Account/LogOff
@@ -168,10 +141,10 @@ namespace QuikMeds.Controllers
         public ActionResult Logout()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("Login","Account");
+            return RedirectToAction("Login", "Account");
         }
 
-       
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
