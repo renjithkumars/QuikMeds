@@ -5,12 +5,16 @@
     {
         @Html.AntiForgeryToken()
 
-        <ul class="nav navbar-nav navbar-right">
-            <li>
-                @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Home")
-            </li>
-            <li><a href="javascript:document.getElementById('logoutForm').submit()">Logout</a></li>
-        </ul>
+<ul class="nav navbar-nav navbar-right">
+    <li>
+        @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Home")
+    </li>
+    @if ("s.srk1989@gmail.com"==User.Identity.GetUserName()){
+    <li>
+        @Html.ActionLink("Admin", "Index", "Admin")
+    </li>}
+    <li><a href="javascript:document.getElementById('logoutForm').submit()">Logout</a></li>
+</ul>
     }
 }
 else
