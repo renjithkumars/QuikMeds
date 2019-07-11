@@ -19,5 +19,7 @@ namespace QuikMeds
         public string PName { get; set; }
         public decimal UnitPrice { get; set; }
         public int Quantity { get; set; }
+    
+        public virtual Product Product { get; set; }
     }
 }

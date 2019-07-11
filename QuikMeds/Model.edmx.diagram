@@ -5,17 +5,19 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="3f3fd04f6efe4baf92baa745947b2bb6" Name="Diagram1">
-        <EntityTypeShape EntityType="CTXModel.Customer" Width="1.5" PointX="0.75" PointY="5.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="CTXModel.Order_Products" Width="1.5" PointX="5.25" PointY="1.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="CTXModel.Order" Width="1.5" PointX="3" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CTXModel.Customer" Width="1.5" PointX="0.75" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CTXModel.Order_Products" Width="1.5" PointX="5.125" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="CTXModel.Order" Width="1.5" PointX="3.125" PointY="5.125" IsExpanded="true" />
         <EntityTypeShape EntityType="CTXModel.Product" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="CTXModel.ShoppingCartData" Width="1.5" PointX="5.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CTXModel.ShoppingCartData" Width="1.5" PointX="6.125" PointY="4.375" IsExpanded="true" />
         <EntityTypeShape EntityType="CTXModel.Supplier" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
         <AssociationConnector Association="CTXModel.FK_Orders_Customers" ManuallyRouted="false" />
         <AssociationConnector Association="CTXModel.FK_Order_Products_Orders" ManuallyRouted="false" />
         <AssociationConnector Association="CTXModel.FK_Order_Products_Products" ManuallyRouted="false" />
         <AssociationConnector Association="CTXModel.FK_Products_Suppliers" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="CTXModel.Information" Width="1.5" PointX="7.375" PointY="0.75" />
+        <EntityTypeShape EntityType="CTXModel.Information" Width="1.5" PointX="7.25" PointY="1.5" />
+        <EntityTypeShape EntityType="CTXModel.sysdiagram" Width="1.5" PointX="5.375" PointY="7.75" />
+        <AssociationConnector Association="CTXModel.FK_ShoppingCartData_Products" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

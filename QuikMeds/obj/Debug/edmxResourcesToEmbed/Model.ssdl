@@ -22,13 +22,16 @@
 warning 6002: The table/view 'CTX.dbo.Information' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="Information">
     <Key>
-      <PropertyRef Name="Category" />
+      <PropertyRef Name="PID" />
       <PropertyRef Name="Ussage" />
+      <PropertyRef Name="Category" />
     </Key>
-    <Property Name="Category" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="PID" Type="int" Nullable="false" />
     <Property Name="Ussage" Type="varchar(max)" Nullable="false" />
     <Property Name="Side_Effects" Type="varchar(max)" />
     <Property Name="Additional_information" Type="varchar" MaxLength="50" />
+    <Property Name="Category" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="SID" Type="int" />
   </EntityType>
   <EntityType Name="Order_Products">
     <Key>
@@ -87,6 +90,16 @@ warning 6002: The table/view 'CTX.dbo.Information' does not have a primary key d
     <Property Name="State" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="Postcode" Type="varchar" MaxLength="50" Nullable="false" />
   </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
   <Association Name="FK_Order_Products_Orders">
     <End Role="Orders" Type="Self.Orders" Multiplicity="1">
       <OnDelete Action="Cascade" />
@@ -141,6 +154,18 @@ warning 6002: The table/view 'CTX.dbo.Information' does not have a primary key d
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_ShoppingCartData_Products">
+    <End Role="Products" Type="Self.Products" Multiplicity="1" />
+    <End Role="ShoppingCartData" Type="Self.ShoppingCartData" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="PID" />
+      </Principal>
+      <Dependent Role="ShoppingCartData">
+        <PropertyRef Name="PID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="CTXModelStoreContainer">
     <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Order_Products" EntityType="Self.Order_Products" Schema="dbo" store:Type="Tables" />
@@ -148,12 +173,15 @@ warning 6002: The table/view 'CTX.dbo.Information' does not have a primary key d
     <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ShoppingCartData" EntityType="Self.ShoppingCartData" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Suppliers" EntityType="Self.Suppliers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Information" EntityType="Self.Information" store:Type="Tables" store:Schema="dbo">
       <DefiningQuery>SELECT 
-    [Information].[Category] AS [Category], 
+    [Information].[PID] AS [PID], 
     [Information].[Ussage] AS [Ussage], 
     [Information].[Side_Effects] AS [Side_Effects], 
-    [Information].[Additional_information] AS [Additional_information]
+    [Information].[Additional_information] AS [Additional_information], 
+    [Information].[Category] AS [Category], 
+    [Information].[SID] AS [SID]
     FROM [dbo].[Information] AS [Information]</DefiningQuery>
     </EntitySet>
     <AssociationSet Name="FK_Order_Products_Orders" Association="Self.FK_Order_Products_Orders">
@@ -171,6 +199,10 @@ warning 6002: The table/view 'CTX.dbo.Information' does not have a primary key d
     <AssociationSet Name="FK_Products_Suppliers" Association="Self.FK_Products_Suppliers">
       <End Role="Suppliers" EntitySet="Suppliers" />
       <End Role="Products" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ShoppingCartData_Products" Association="Self.FK_ShoppingCartData_Products">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="ShoppingCartData" EntitySet="ShoppingCartData" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

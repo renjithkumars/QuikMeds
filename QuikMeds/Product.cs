@@ -18,6 +18,7 @@ namespace QuikMeds
         public Product()
         {
             this.Order_Products = new HashSet<Order_Products>();
+            this.ShoppingCartDatas = new HashSet<ShoppingCartData>();
         }
     
         public int PID { get; set; }
@@ -33,5 +34,7 @@ namespace QuikMeds
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order_Products> Order_Products { get; set; }
         public virtual Supplier Supplier { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ShoppingCartData> ShoppingCartDatas { get; set; }
     }
 }

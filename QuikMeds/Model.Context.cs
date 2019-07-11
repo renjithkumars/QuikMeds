@@ -32,5 +32,6 @@ namespace QuikMeds
         public virtual DbSet<ShoppingCartData> ShoppingCartDatas { get; set; }
         public virtual DbSet<Supplier> Suppliers { get; set; }
         public virtual DbSet<Information> Information { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
     }
 }

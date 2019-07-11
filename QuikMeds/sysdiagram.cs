@@ -12,13 +12,12 @@ namespace QuikMeds
     using System;
     using System.Collections.Generic;
     
-    public partial class Information
+    public partial class sysdiagram
     {
-        public string Category { get; set; }
-        public string Ussage { get; set; }
-        public string Side_Effects { get; set; }
-        public string Additional_information { get; set; }
-        public int PID { get; set; }
-        public Nullable<int> SID { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

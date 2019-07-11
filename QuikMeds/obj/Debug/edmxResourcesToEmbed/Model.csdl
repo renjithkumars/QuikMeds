@@ -57,6 +57,7 @@
     <Property Name="ROL" Type="Int32" Nullable="false" />
     <NavigationProperty Name="Order_Products" Relationship="Self.FK_Order_Products_Products" FromRole="Products" ToRole="Order_Products" />
     <NavigationProperty Name="Supplier" Relationship="Self.FK_Products_Suppliers" FromRole="Products" ToRole="Suppliers" />
+    <NavigationProperty Name="ShoppingCartDatas" Relationship="CTXModel.FK_ShoppingCartData_Products" FromRole="Product" ToRole="ShoppingCartData" />
   </EntityType>
   <EntityType Name="ShoppingCartData">
     <Key>
@@ -67,6 +68,7 @@
     <Property Name="PName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="UnitPrice" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
     <Property Name="Quantity" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Product" Relationship="CTXModel.FK_ShoppingCartData_Products" FromRole="ShoppingCartData" ToRole="Product" />
   </EntityType>
   <EntityType Name="Supplier">
     <Key>
@@ -161,15 +163,45 @@
       <End Role="Products" EntitySet="Products" />
     </AssociationSet>
     <EntitySet Name="Information" EntityType="CTXModel.Information" />
+    <EntitySet Name="sysdiagrams" EntityType="CTXModel.sysdiagram" />
+    <AssociationSet Name="FK_ShoppingCartData_Products" Association="CTXModel.FK_ShoppingCartData_Products">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="ShoppingCartData" EntitySet="ShoppingCartDatas" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="Information">
     <Key>
       <PropertyRef Name="Category" />
       <PropertyRef Name="Ussage" />
+      <PropertyRef Name="PID" />
     </Key>
-    <Property Name="Category" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Category" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
     <Property Name="Ussage" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Name="Side_Effects" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Name="Additional_information" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="PID" Type="Int32" Nullable="false" />
+    <Property Name="SID" Type="Int32" />
   </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <Association Name="FK_ShoppingCartData_Products">
+    <End Type="CTXModel.Product" Role="Product" Multiplicity="1" />
+    <End Type="CTXModel.ShoppingCartData" Role="ShoppingCartData" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="PID" />
+      </Principal>
+      <Dependent Role="ShoppingCartData">
+        <PropertyRef Name="PID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>
