@@ -7,9 +7,9 @@ using System.Web.Mvc;
 
 namespace QuikMeds.Controllers
 {
-    public class HomeController : BaseController
+    public  class HomeController : BaseController
     {
-
+        
         public ActionResult Index()
         {
 
@@ -192,6 +192,29 @@ namespace QuikMeds.Controllers
             _ctx.SaveChanges();
 
             return RedirectToAction("comments", "Home", new { id = articleId });
+        }
+
+        public ActionResult Search(string search)
+        {
+            List<Product> sub;
+            List<Product> product = _ctx.Products.Where(p => p.Brand.StartsWith(search)).ToList<Product>();
+            ViewBag.Products = product;
+            sub = _ctx.Products.Where(s=>s.Category=="").ToList<Product>();
+            ViewBag.substitute = sub;
+            return View();
+
+        }
+
+        public ActionResult Substitute(string category,string content,string brand)
+        {
+           
+            List<Product> product = _ctx.Products.Where(p => p.Brand==brand).ToList<Product>();
+            List <Product> substitute=_ctx.Products.Except(_ctx.Products.Where(p => p.Brand == brand))
+                                            .Where(p=>p.Category==category && p.Description == content).ToList<Product>();
+            ViewBag.substitute = substitute;
+            ViewBag.Products = product;
+
+            return View("Search");
         }
 
         public static List<Product> getdetails()

@@ -26,6 +26,12 @@
 
     </select>
 </form>
+<br />
+
+@using (Html.BeginForm("Search", "Home", FormMethod.Get))
+{
+    @Html.TextBox("search") <input type="submit" value="search" />
+}
 
 @if (ViewBag.Products.Count == 0)
 {
@@ -59,7 +65,7 @@ else
                 {
                     <div>
 
-                        @Html.ActionLink("View Comments", "Comments", "Home", new {id = item.PID }, null)
+                        @Html.ActionLink("View Comments", "Comments", "Home", new { id = item.PID }, null)
                     </div>
                 }
 

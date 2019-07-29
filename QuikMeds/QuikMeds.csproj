@@ -318,7 +318,8 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Home\comments.cshtml" />
     <Content Include="Views\Shared\_CommentBox.cshtml" />
-    <Content Include="Views\Home\test.cshtml" />
+    <Content Include="Views\Home\Search.cshtml" />
+    <Content Include="Views\Shared\Substitute.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

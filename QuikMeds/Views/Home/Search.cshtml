@@ -1,0 +1,70 @@
+﻿
+@{
+    ViewBag.Title = "Search";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Search</h2>
+<div>
+    <div class="list-view">
+        @foreach (var item in ViewBag.Products)
+        {
+        <div class="list-item">
+            <span class="p-cart">@item.Category</span>
+            <span class="p-brand">@item.Brand</span>
+            <span class="p-name">@item.PName</span>
+
+            <span class="p-description">@item.Description<text>  Milli grams</text></span>
+
+            @if (item.CustomerComments.Count > 0)
+    {
+        <div>
+
+            @Html.ActionLink("View Comments", "Comments", "Home", new { id = item.PID }, null)
+        </div>
+}
+
+            <div class="add-to-cart">
+                @Html.ActionLink("add to cart", "AddToCart", "Home", new { id = item.PID }, null)
+                <span class="p-price">@String.Format("{0:c}", item.UnitPrice)</span>
+            </div>
+            <span class="p-unit">
+                @item.UnitsInStock
+                @if (item.UnitsInStock > 1)
+        {
+            <text>units</text>
+}
+else
+{
+        <text>unit</text>
+}
+            </span>
+            <br />
+            <br/>
+            <div>
+
+                @Html.ActionLink("Substitute", "Substitute", "Home", new { category = item.Category, content = item.Description, brand = item.Brand }, null)
+            </div>
+
+        </div>
+        }
+
+    </div>
+    <div>
+        @if (ViewBag.substitute.Count == 0)
+        {
+            <br />
+            <div id="EmptyDataMsg" class="alert alert-info">
+                <strong> Click substitute button to view similar products!</strong>
+            </div>
+        }
+        else
+
+        {<hr />
+            @Html.Partial("Substitute")
+
+        }
+    </div>
+
+</div>
+
