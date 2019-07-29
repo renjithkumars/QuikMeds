@@ -21,7 +21,7 @@
     <Property Name="Phone" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="Address1" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="Address2" Type="varchar" MaxLength="50" />
-    <Property Name="Suburb" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Suburb" Type="varchar" MaxLength="50" />
     <Property Name="Postcode" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="State" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="Ctype" Type="varchar" MaxLength="50" Nullable="false" />
@@ -35,13 +35,12 @@ warning 6002: The table/view 'CTX.dbo.Information' does not have a primary key d
     <Key>
       <PropertyRef Name="PID" />
       <PropertyRef Name="Ussage" />
-      <PropertyRef Name="Category" />
     </Key>
     <Property Name="PID" Type="int" Nullable="false" />
     <Property Name="Ussage" Type="varchar(max)" Nullable="false" />
     <Property Name="Side_Effects" Type="varchar(max)" />
     <Property Name="Additional_information" Type="varchar" MaxLength="50" />
-    <Property Name="Category" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="Category" Type="nchar" MaxLength="10" />
     <Property Name="SID" Type="int" />
   </EntityType>
   <EntityType Name="Order_Products">
@@ -76,6 +75,7 @@ warning 6002: The table/view 'CTX.dbo.Information' does not have a primary key d
     <Property Name="Description" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="SID" Type="int" Nullable="false" />
     <Property Name="ROL" Type="int" Nullable="false" />
+    <Property Name="Average" Type="float" />
   </EntityType>
   <EntityType Name="ShoppingCartData">
     <Key>
@@ -111,6 +111,18 @@ warning 6002: The table/view 'CTX.dbo.Information' does not have a primary key d
     <Property Name="version" Type="int" />
     <Property Name="definition" Type="varbinary(max)" />
   </EntityType>
+  <Association Name="FK_CustomerComments_Products">
+    <End Role="Products" Type="Self.Products" Multiplicity="1" />
+    <End Role="CustomerComments" Type="Self.CustomerComments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="PID" />
+      </Principal>
+      <Dependent Role="CustomerComments">
+        <PropertyRef Name="PID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Order_Products_Orders">
     <End Role="Orders" Type="Self.Orders" Multiplicity="1">
       <OnDelete Action="Cascade" />
@@ -196,6 +208,10 @@ warning 6002: The table/view 'CTX.dbo.Information' does not have a primary key d
     [Information].[SID] AS [SID]
     FROM [dbo].[Information] AS [Information]</DefiningQuery>
     </EntitySet>
+    <AssociationSet Name="FK_CustomerComments_Products" Association="Self.FK_CustomerComments_Products">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="CustomerComments" EntitySet="CustomerComments" />
+    </AssociationSet>
     <AssociationSet Name="FK_Order_Products_Orders" Association="Self.FK_Order_Products_Orders">
       <End Role="Orders" EntitySet="Orders" />
       <End Role="Order_Products" EntitySet="Order_Products" />

@@ -17,6 +17,7 @@ namespace QuikMeds
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Product()
         {
+            this.CustomerComments = new HashSet<CustomerComment>();
             this.Order_Products = new HashSet<Order_Products>();
             this.ShoppingCartDatas = new HashSet<ShoppingCartData>();
         }
@@ -30,7 +31,10 @@ namespace QuikMeds
         public string Description { get; set; }
         public int SID { get; set; }
         public int ROL { get; set; }
+        public Nullable<double> Average { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CustomerComment> CustomerComments { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order_Products> Order_Products { get; set; }
         public virtual Supplier Supplier { get; set; }

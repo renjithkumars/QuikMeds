@@ -1,5 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="CTXModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="CustomerComment">
+    <Key>
+      <PropertyRef Name="CommentId" />
+    </Key>
+    <Property Name="CommentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Comments" Type="String" MaxLength="7999" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ThisDateTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="PID" Type="Int32" Nullable="false" />
+    <Property Name="Rating" Type="Int32" />
+    <NavigationProperty Name="Product" Relationship="Self.FK_CustomerComments_Products" FromRole="CustomerComments" ToRole="Products" />
+  </EntityType>
   <EntityType Name="Customer">
     <Key>
       <PropertyRef Name="CID" />
@@ -10,7 +22,7 @@
     <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="Address1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="Address2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="Suburb" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Suburb" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="Postcode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="State" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="Ctype" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
@@ -55,9 +67,11 @@
     <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="SID" Type="Int32" Nullable="false" />
     <Property Name="ROL" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="CustomerComments" Relationship="Self.FK_CustomerComments_Products" FromRole="Products" ToRole="CustomerComments" />
     <NavigationProperty Name="Order_Products" Relationship="Self.FK_Order_Products_Products" FromRole="Products" ToRole="Order_Products" />
     <NavigationProperty Name="Supplier" Relationship="Self.FK_Products_Suppliers" FromRole="Products" ToRole="Suppliers" />
-    <NavigationProperty Name="ShoppingCartDatas" Relationship="CTXModel.FK_ShoppingCartData_Products" FromRole="Product" ToRole="ShoppingCartData" />
+    <NavigationProperty Name="ShoppingCartDatas" Relationship="Self.FK_ShoppingCartData_Products" FromRole="Products" ToRole="ShoppingCartData" />
+    <Property Name="Average" Type="Double" />
   </EntityType>
   <EntityType Name="ShoppingCartData">
     <Key>
@@ -68,7 +82,7 @@
     <Property Name="PName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="UnitPrice" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
     <Property Name="Quantity" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="Product" Relationship="CTXModel.FK_ShoppingCartData_Products" FromRole="ShoppingCartData" ToRole="Product" />
+    <NavigationProperty Name="Product" Relationship="Self.FK_ShoppingCartData_Products" FromRole="ShoppingCartData" ToRole="Products" />
   </EntityType>
   <EntityType Name="Supplier">
     <Key>
@@ -85,6 +99,40 @@
     <Property Name="Postcode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <NavigationProperty Name="Products" Relationship="Self.FK_Products_Suppliers" FromRole="Suppliers" ToRole="Products" />
   </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Information">
+    <Key>
+      <PropertyRef Name="PID" />
+      <PropertyRef Name="Ussage" />
+    </Key>
+    <Property Name="PID" Type="Int32" Nullable="false" />
+    <Property Name="Ussage" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Side_Effects" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Additional_information" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Category" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="SID" Type="Int32" />
+  </EntityType>
+  <Association Name="FK_CustomerComments_Products">
+    <End Role="Products" Type="Self.Product" Multiplicity="1" />
+    <End Role="CustomerComments" Type="Self.CustomerComment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="PID" />
+      </Principal>
+      <Dependent Role="CustomerComments">
+        <PropertyRef Name="PID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Orders_Customers">
     <End Role="Customers" Type="Self.Customer" Multiplicity="1">
       <OnDelete Action="Cascade" />
@@ -139,13 +187,32 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_ShoppingCartData_Products">
+    <End Role="Products" Type="Self.Product" Multiplicity="1" />
+    <End Role="ShoppingCartData" Type="Self.ShoppingCartData" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="PID" />
+      </Principal>
+      <Dependent Role="ShoppingCartData">
+        <PropertyRef Name="PID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="CTXEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="CustomerComments" EntityType="Self.CustomerComment" />
     <EntitySet Name="Customers" EntityType="Self.Customer" />
     <EntitySet Name="Order_Products" EntityType="Self.Order_Products" />
     <EntitySet Name="Orders" EntityType="Self.Order" />
     <EntitySet Name="Products" EntityType="Self.Product" />
     <EntitySet Name="ShoppingCartDatas" EntityType="Self.ShoppingCartData" />
     <EntitySet Name="Suppliers" EntityType="Self.Supplier" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <EntitySet Name="Information" EntityType="Self.Information" />
+    <AssociationSet Name="FK_CustomerComments_Products" Association="Self.FK_CustomerComments_Products">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="CustomerComments" EntitySet="CustomerComments" />
+    </AssociationSet>
     <AssociationSet Name="FK_Orders_Customers" Association="Self.FK_Orders_Customers">
       <End Role="Customers" EntitySet="Customers" />
       <End Role="Orders" EntitySet="Orders" />
@@ -162,58 +229,9 @@
       <End Role="Suppliers" EntitySet="Suppliers" />
       <End Role="Products" EntitySet="Products" />
     </AssociationSet>
-    <EntitySet Name="Information" EntityType="CTXModel.Information" />
-    <EntitySet Name="CustomerComments" EntityType="CTXModel.CustomerComment" />
-    <EntitySet Name="sysdiagrams" EntityType="CTXModel.sysdiagram" />
-    <AssociationSet Name="FK_ShoppingCartData_Products" Association="CTXModel.FK_ShoppingCartData_Products">
-      <End Role="Product" EntitySet="Products" />
+    <AssociationSet Name="FK_ShoppingCartData_Products" Association="Self.FK_ShoppingCartData_Products">
+      <End Role="Products" EntitySet="Products" />
       <End Role="ShoppingCartData" EntitySet="ShoppingCartDatas" />
     </AssociationSet>
   </EntityContainer>
-  <EntityType Name="Information">
-    <Key>
-      <PropertyRef Name="Category" />
-      <PropertyRef Name="Ussage" />
-      <PropertyRef Name="PID" />
-    </Key>
-    <Property Name="Category" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
-    <Property Name="Ussage" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Name="Side_Effects" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Name="Additional_information" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="PID" Type="Int32" Nullable="false" />
-    <Property Name="SID" Type="Int32" />
-  </EntityType>
-  <EntityType Name="CustomerComment">
-    <Key>
-      <PropertyRef Name="CommentId" />
-    </Key>
-    <Property Name="CommentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="Comments" Type="String" Nullable="false" MaxLength="7999" FixedLength="false" Unicode="false" />
-    <Property Name="ThisDateTime" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="PID" Type="Int32" Nullable="false" />
-    <Property Name="Rating" Type="Int32" />
-  </EntityType>
-  <EntityType Name="sysdiagram">
-    <Key>
-      <PropertyRef Name="diagram_id" />
-    </Key>
-    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-    <Property Name="principal_id" Type="Int32" Nullable="false" />
-    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="version" Type="Int32" />
-    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-  </EntityType>
-  <Association Name="FK_ShoppingCartData_Products">
-    <End Type="CTXModel.Product" Role="Product" Multiplicity="1" />
-    <End Type="CTXModel.ShoppingCartData" Role="ShoppingCartData" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Product">
-        <PropertyRef Name="PID" />
-      </Principal>
-      <Dependent Role="ShoppingCartData">
-        <PropertyRef Name="PID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
 </Schema>

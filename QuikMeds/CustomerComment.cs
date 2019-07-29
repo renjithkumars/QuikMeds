@@ -12,13 +12,15 @@ namespace QuikMeds
     using System;
     using System.Collections.Generic;
     
-    public partial class Information
+    public partial class CustomerComment
     {
+        public int CommentId { get; set; }
+        public string Email { get; set; }
+        public string Comments { get; set; }
+        public System.DateTime ThisDateTime { get; set; }
         public int PID { get; set; }
-        public string Ussage { get; set; }
-        public string Side_Effects { get; set; }
-        public string Additional_information { get; set; }
-        public string Category { get; set; }
-        public Nullable<int> SID { get; set; }
+        public Nullable<int> Rating { get; set; }
+    
+        public virtual Product Product { get; set; }
     }
 }

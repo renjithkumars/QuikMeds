@@ -1,39 +1,35 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
-
 <h2>Products</h2>
-
 <form action="/Home/Category" method="get" id="category" class="option">
     <span>Category</span>
     <select id="catName" class="form-control" name="catName" onchange="$('#category').submit()">
         <option>-- Select --</option>
         <option value="">All</option>
         @{
-        string my_item = "";
+            string my_item = "";
         }
-         @foreach (var item in ViewBag.Products)
+        @foreach (var item in ViewBag.Products)
 
-         {
-        
+        {
+
             if (my_item != item.Category)
             {
-            <option value="@item.Category">@item.Category</option>
+                <option value="@item.Category">@item.Category</option>
 
-             }
+            }
             my_item = item.Category;
-        
-             
-}
+
+
+        }
 
     </select>
 </form>
 
-
-
 @if (ViewBag.Products.Count == 0)
 {
-    <br/>
+    <br />
     <div id="EmptyDataMsg" class="alert alert-info">
         <strong>Welcome!</strong> Our shop is currently empty.
     </div>
@@ -43,11 +39,29 @@ else
     <div class="list-view">
         @foreach (var item in ViewBag.Products)
         {
-            <div class="list-item" >
+            <div class="list-item">
                 <span class="p-cart">@item.Category</span>
                 <span class="p-brand">@item.Brand</span>
                 <span class="p-name">@item.PName</span>
-                <span class="p-description" >@item.Description<text>  Milli grams</text></span>
+
+                <span class="p-description">@item.Description<text>  Milli grams</text></span>
+                <div>
+                    @for (var i = 1; i <= item.Average; i++)
+                    {
+                        <span class="starGlowN"></span>
+                    }
+                    @for (var i = (item.Average + 1); i <= 5; i++)
+                    {
+                        <span class="starFadeN"></span>
+                    }
+                </div>
+                @if (item.CustomerComments.Count > 0)
+                {
+                    <div>
+
+                        @Html.ActionLink("View Comments", "Comments", "Home", new {id = item.PID }, null)
+                    </div>
+                }
 
                 <div class="add-to-cart">
                     @Html.ActionLink("add to cart", "AddToCart", "Home", new { id = item.PID }, null)
@@ -55,29 +69,27 @@ else
                 </div>
                 <span class="p-unit">
                     @item.UnitsInStock
-                @if (item.UnitsInStock > 1)
-                {
-                    <text>units</text>
-                }
-                else
-                {
-                    <text>unit</text>
-                }
-            </span>
-        </div>
+                    @if (item.UnitsInStock > 1)
+                    {
+                        <text>units</text>
+                    }
+                    else
+                    {
+                        <text>unit</text>
+                    }
+                </span>
+            </div>
         }
     </div>
 }
 
-
-
 @*<tr>
-    <td>@item.pname</td>
-    <td>@string.format("{0:c}", item.unitprice)</td>
-    <td>
-       <a class="quantity" onclick="change(this, 1, @item.pid)">+</a>
-        <span>@item.quantity</span>
-        <a class="quantity" onclick="change(this, 0, @item.pid)">-</a>
-        <a class="remove" onclick="change(this, -1, @item.pid)">remove</a>
-    </td>
-</tr>*@
+        <td>@item.pname</td>
+        <td>@string.format("{0:c}", item.unitprice)</td>
+        <td>
+           <a class="quantity" onclick="change(this, 1, @item.pid)">+</a>
+            <span>@item.quantity</span>
+            <a class="quantity" onclick="change(this, 0, @item.pid)">-</a>
+            <a class="remove" onclick="change(this, -1, @item.pid)">remove</a>
+        </td>
+    </tr>*@

@@ -108,7 +108,8 @@ namespace QuikMeds.Controllers
             try
             {
                 List<ShoppingCartData> carts = _ctx.ShoppingCartDatas.ToList();
-                carts.ForEach(a => {
+                carts.ForEach(a =>
+                {
                     Product product = _ctx.Products.FirstOrDefault(p => p.PID == a.PID);
                     product.UnitsInStock += a.Quantity;
                 });
@@ -120,14 +121,14 @@ namespace QuikMeds.Controllers
         }
 
         public ActionResult Purchase()
-        { 
+        {
             ViewBag.States = states;
             ViewBag.Cards = cards;
             if (Request.IsAuthenticated)
             {
                 return View();
             }
-            return RedirectToAction("Login","Account");
+            return RedirectToAction("Login", "Account");
         }
 
         [HttpPost]
@@ -144,11 +145,11 @@ namespace QuikMeds.Controllers
                     ModelState.AddModelError("", "Credit card has already expired");
                 }
 
-               if (customer.CardNo.Length != 16)
-                    {
-                        ModelState.AddModelError("", customer.Ctype + "must be 16 digits");
-                    }
-             
+                if (customer.CardNo.Length != 16)
+                {
+                    ModelState.AddModelError("", customer.Ctype + "must be 16 digits");
+                }
+
 
                 if (ModelState.IsValid)
                 {
@@ -191,14 +192,14 @@ namespace QuikMeds.Controllers
                     }
 
                     _ctx.SaveChanges();
-                   //Email
+                    //Email
                     string result = null;
-                    
+
                     try
                     {
                         MailMessage mailMessage = new MailMessage("shilpa.eis2@gmail.com ", c.Email);
                         mailMessage.Subject = "new order";
-                        mailMessage.Body = ("Thank you for using QuiKMeds.......    Your ordenumber : " + o.OrderID+ "   Order date :  "+o.OrderDate+"  Delivery date  : "+o.DeliveryDate);
+                        mailMessage.Body = ("Thank you for using QuiKMeds.......    Your ordenumber : " + o.OrderID + "   Order date :  " + o.OrderDate + "  Delivery date  : " + o.DeliveryDate);
                         mailMessage.IsBodyHtml = false;
 
                         SmtpClient smtp = new SmtpClient();
@@ -230,7 +231,7 @@ namespace QuikMeds.Controllers
                     }
 
                     return RedirectToAction("Index", "Home");
-               
+
 
 
                 }

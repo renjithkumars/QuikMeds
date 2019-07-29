@@ -119,7 +119,6 @@ textarea {
 .list-view {
     display: flex;
     flex-wrap: wrap;
-   
 }
 
 .list-item {
@@ -132,6 +131,7 @@ textarea {
     padding: 20px;
     border: double #770322;
 }
+
     .list-item:hover {
         opacity: 1;
     }
@@ -177,11 +177,19 @@ textarea {
         display: block;
     }
 
+    .list-item .p-comments {
+        font-size: 1em;
+        font-weight: bold;
+        padding: 7px;
+        float: right;
+    }
+
     .list-item .add-to-cart {
         display: inline-block;
         vertical-align: bottom;
         margin-top: 10px;
     }
+
         .list-item .add-to-cart a {
             border: 1px solid #019101;
             padding: 10px;
@@ -199,6 +207,7 @@ textarea {
                 background: #adbded;
                 border: 1px solid #ffffff;
             }
+
     .list-item .p-price {
         color: #2c2144;
         background: rgba(173, 189, 237, 0.53);
@@ -265,6 +274,7 @@ textarea {
                 background: #ff6a00;
                 color: #fff;
             }
+
 .table {
     font-family: Verdana, Arial, Sans-Serif;
     font-size: 11px;
@@ -272,4 +282,61 @@ textarea {
     border-width: 1px;
     border-color: #999999;
     border-collapse: collapse;
+}
+
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+
+.commentBox {
+    background-color: #efefef;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.starFade {
+    background-image: url('/Images/StarFade.gif');
+    min-width: 30px;
+    min-height: 30px;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.starFadeN {
+    background-image: url('/Images/StarFade.gif');
+    min-width: 30px;
+    min-height: 30px;
+    display: inline-block;
+}
+
+.starGlow {
+    background-image: url('/Images/starglow.gif');
+    min-width: 30px;
+    min-height: 30px;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.starGlowN {
+    background-image: url('/Images/starglow.gif');
+    min-width: 30px;
+    min-height: 30px;
+    display: inline-block;
+}
+
+.rating {
+    color: #770322;
+    border: 1px solid #a13de5;
+    font-size: 5em;
+    font-weight: bold;
+    padding: 7px;
+    float: left;
 }

@@ -1,0 +1,41 @@
+﻿
+@{
+    ViewBag.Title = "test";
+    Layout = "~/Views/Shared/Admin_layout.cshtml";
+}
+
+<h2>test</h2>
+
+<div class="list-view">
+    @foreach (var item in ViewBag.rating)
+    {
+        <div class="list-item">
+            <span class="p-cart">@item.Category</span>
+            <div class="p-comments">
+                @Html.ActionLink("Comments", "Comments", "Home", new { id = item.PID }, null)
+            </div>
+            <span class="p-brand">@item.Brand</span>
+            <span class="p-name">@item.PName</span>
+
+            <span class="p-description">@item.Description<text>  Milli grams</text></span>
+
+            <div class="add-to-cart">
+                @Html.ActionLink("add to cart", "AddToCart", "Home", new { id = item.PID }, null)
+                <span class="p-price">@String.Format("{0:c}", item.UnitPrice)</span>
+            </div>
+            <span class="p-unit">
+                @item.UnitsInStock
+                @if (item.UnitsInStock > 1)
+                {
+                    <text>units</text>
+                }
+                else
+                {
+                    <text>unit</text>
+                }
+            </span>
+        </div>
+    }
+</div>
+}
+

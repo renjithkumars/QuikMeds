@@ -41,28 +41,29 @@
     <title>Informations</title>
 </head>
 <body>
-    
-        @if (ViewBag.Products.Count == 0)
+
+    @if (ViewBag.Products.Count == 0)
     {
         <br />
         <div id="EmptyDataMsg" class="alert alert-info">
-            <strong>Welcome!</strong> Sor\ry.......our Information window is currently empty.
+            <strong>Welcome!</strong> Our shop is currently empty.
         </div>
-}
-else
-{
-    <div class="list-view">
-        @foreach (var item in ViewBag.Products)
+    }
+    else
     {
-        <div class="list-item">
-            
-            <span class="p-cart">@item.Category</span>
-            <span class="p-brand">@item.Ussage</span>
-            <span class="p-name">@item.Side_Effects</span>
-            
+        <div class="list-view">
+            @foreach (var item in ViewBag.Products)
+            {
+                <div class="list-item">
+                    <span class="p-cart">@item.Category</span>
+                    <span class="p-brand">@item.Ussage</span>
+                    <span class="p-name">@item.Side_Effects</span>
+
+                </div>
+            }
         </div>
-}
-    </div>
-}
-<</body>
-<</html>
+    }
+    <
+</body>
+<
+</html>

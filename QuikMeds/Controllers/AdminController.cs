@@ -26,27 +26,27 @@ namespace QuikMeds.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Add_Product(QuikMeds.Product products)
         {
-            
+
             if (ModelState.IsValid)
             {
                 Product a = new Product
                 {
-                    
+
                     PName = products.PName,
-                    Brand=products.Brand,
-                    UnitPrice=products.UnitPrice,
-                    UnitsInStock=products.UnitsInStock,
-                    Category=products.Category,
-                    Description=products.Description,
-                    SID=products.SID,
-                    ROL=products.ROL
+                    Brand = products.Brand,
+                    UnitPrice = products.UnitPrice,
+                    UnitsInStock = products.UnitsInStock,
+                    Category = products.Category,
+                    Description = products.Description,
+                    SID = products.SID,
+                    ROL = products.ROL
 
                 };
                 try
                 {
                     _ctx.Products.Add(a);
                     _ctx.SaveChanges();
-                    
+
                 }
                 catch (Exception) { }
 
@@ -61,7 +61,7 @@ namespace QuikMeds.Controllers
         [HttpGet]
         public ActionResult Edit(int id)
         {
-            var detail = _ctx.Products.Where(p => p.PID==id).Single();
+            var detail = _ctx.Products.Where(p => p.PID == id).Single();
             return View(detail);
         }
         [HttpPost]
@@ -73,7 +73,7 @@ namespace QuikMeds.Controllers
             {
                 Product b = new Product
                 {
-                    PID=products.PID,
+                    PID = products.PID,
                     PName = products.PName,
                     Brand = products.Brand,
                     UnitPrice = products.UnitPrice,
@@ -88,9 +88,9 @@ namespace QuikMeds.Controllers
                 {
                     _ctx.Entry(b).State = System.Data.Entity.EntityState.Modified;
                     _ctx.SaveChanges();
-                   
+
                 }
-                catch (Exception){ RedirectToAction("Error");  }
+                catch (Exception) { RedirectToAction("Error"); }
 
 
             }
@@ -115,7 +115,7 @@ namespace QuikMeds.Controllers
             {
                 Product c = new Product
                 {
-                    
+
                     PName = products.PName,
                     Brand = products.Brand,
                     UnitPrice = products.UnitPrice,
@@ -132,5 +132,5 @@ namespace QuikMeds.Controllers
             return View("Index");
         }
 
-        }
     }
+}

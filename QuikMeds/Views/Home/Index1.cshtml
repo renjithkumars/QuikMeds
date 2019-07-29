@@ -5,20 +5,20 @@
         <option value="">All</option>
 
         @{
-        string my_item = "";
+            string my_item = "";
         }
         @foreach (var item in ViewBag.Products)
 
-          {
+        {
 
             if (my_item != item.Description)
-                {
-                    <option value="@item.Description">@item.Description</option>
+            {
+                <option value="@item.Description">@item.Description</option>
 
-                }
-                my_item = item.Description;
-   
-          }
+            }
+            my_item = item.Description;
+
+        }
 
     </select>
 </form>
@@ -26,7 +26,7 @@
 
 @if (ViewBag.Products.Count == 0)
 {
-    <br/>
+    <br />
     <div id="EmptyDataMsg" class="alert alert-info">
         <strong>Welcome!</strong> Our shop is currently empty.
     </div>
@@ -36,28 +36,27 @@ else
     <div class="list-view">
         @foreach (var item in ViewBag.Products)
         {
-            <div class="list-item" >
+            <div class="list-item">
                 <span class="p-cart">@item.Category</span>
                 <span class="p-brand">@item.Brand</span>
                 <span class="p-name">@item.PName</span>
-                <span class="p-description" >@item.Description<text>  Milli grams</text></span>
-
+                <span class="p-description">@item.Description<text>  Milli grams</text></span>
                 <div class="add-to-cart">
                     @Html.ActionLink("add to cart", "AddToCart", "Home", new { id = item.PID }, null)
                     <span class="p-price">@String.Format("{0:c}", item.UnitPrice)</span>
                 </div>
                 <span class="p-unit">
                     @item.UnitsInStock
-                @if (item.UnitsInStock > 1)
-                {
-                    <text>units</text>
-                }
-                else
-                {
-                    <text>unit</text>
-                }
-            </span>
-        </div>
+                    @if (item.UnitsInStock > 1)
+                    {
+                        <text>units</text>
+                    }
+                    else
+                    {
+                        <text>unit</text>
+                    }
+                </span>
+            </div>
         }
     </div>
 }

@@ -29,7 +29,7 @@
             $.ajax({
                 type: 'POST',
                 url: "Checkout/QuanityChange",
-                data:"{ 'type': " + type +", 'pId': " + pid + "}",
+                data: "{ 'type': " + type + ", 'pId': " + pid + "}",
                 contentType: "application/json; charset=utf-8",
                 success: function (msg) {
                     if (msg.d == 0) {
@@ -75,6 +75,6 @@ else
     </table>
     <div class="button">
         @Html.ActionLink("Clear Cart", "Clear", "Checkout", null, new { @class = "btn btn-default" })
-        @Html.ActionLink("Pay Now ", "Purchase", "Checkout", null, new { @class = "btn btn-info" })
+        @Html.ActionLink("Countinue", "Purchase", "Checkout", null, new { @class = "btn btn-info" })
     </div>
 }
