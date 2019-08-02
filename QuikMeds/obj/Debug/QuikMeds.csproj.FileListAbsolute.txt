@@ -65,7 +65,6 @@ C:\Users\Lenovo\source\repos\QuikMeds\QuikMeds\bin\Microsoft.AI.Web.xml
 C:\Users\Lenovo\source\repos\QuikMeds\QuikMeds\obj\Debug\QuikMeds.csproj.CoreCompileInputs.cache
 C:\Users\Lenovo\source\repos\QuikMeds\QuikMeds\obj\Debug\QuikMeds.dll
 C:\Users\Lenovo\source\repos\QuikMeds\QuikMeds\obj\Debug\QuikMeds.pdb
-C:\Users\Lenovo\source\repos\QuikMeds\QuikMeds\obj\Debug\QuikMeds.csprojResolveAssemblyReference.cache
 C:\Users\Lenovo\source\repos\My-disertation\QuikMeds\QuikMeds\bin\ApplicationInsights.config
 C:\Users\Lenovo\source\repos\My-disertation\QuikMeds\QuikMeds\bin\QuikMeds.dll.config
 C:\Users\Lenovo\source\repos\My-disertation\QuikMeds\QuikMeds\bin\QuikMeds.dll
@@ -134,3 +133,4 @@ C:\Users\Lenovo\source\repos\My-disertation\QuikMeds\QuikMeds\obj\Debug\QuikMeds
 C:\Users\Lenovo\source\repos\My-disertation\QuikMeds\QuikMeds\obj\Debug\QuikMeds.csproj.CoreCompileInputs.cache
 C:\Users\Lenovo\source\repos\My-disertation\QuikMeds\QuikMeds\obj\Debug\QuikMeds.dll
 C:\Users\Lenovo\source\repos\My-disertation\QuikMeds\QuikMeds\obj\Debug\QuikMeds.pdb
+C:\Users\Lenovo\source\repos\QuikMeds\QuikMeds\obj\Debug\QuikMeds.csprojResolveAssemblyReference.cache

@@ -10,19 +10,20 @@
         @{
             string my_item = "";
         }
-        @foreach (var item in ViewBag.Products)
+        @foreach (var item in ViewBag.Patient)
 
         {
 
-            if (my_item != item.Category)
+            if (my_item != item.Tablet)
             {
-                <option value="@item.Category">@item.Category</option>
+                <option value="@item.Tablet">@item.Tablet</option>
 
             }
-            my_item = item.Category;
+            my_item = item.Tablet;
 
 
         }
+
 
     </select>
 </form>
@@ -70,7 +71,7 @@ else
                 }
 
                 <div class="add-to-cart">
-                    @Html.ActionLink("add to cart", "AddToCart", "Home", new { id = item.PID }, null)
+                   
                     <span class="p-price">@String.Format("{0:c}", item.UnitPrice)</span>
                 </div>
                 <span class="p-unit">

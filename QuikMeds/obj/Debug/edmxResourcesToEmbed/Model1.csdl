@@ -233,5 +233,18 @@
       <End Role="Products" EntitySet="Products" />
       <End Role="ShoppingCartData" EntitySet="ShoppingCartDatas" />
     </AssociationSet>
+    <EntitySet Name="Patients" EntityType="CTXModel.Patient" />
   </EntityContainer>
+  <EntityType Name="Patient">
+    <Key>
+      <PropertyRef Name="ID" />
+      <PropertyRef Name="Tablet" />
+      <PropertyRef Name="Email" />
+      <PropertyRef Name="Description" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="Tablet" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Description" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
 </Schema>

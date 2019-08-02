@@ -4,6 +4,8 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
+
 
 namespace QuikMeds.Controllers
 {
@@ -12,16 +14,25 @@ namespace QuikMeds.Controllers
         
         public ActionResult Index()
         {
-
-
             ViewBag.Products = getdetails();
-            return View();
+            string a = User.Identity.GetUserName();
+            var patient = _ctx.Patients.Where(x => x.Email == a).ToList();
+            ViewBag.Patient = patient;
+            if (Request.IsAuthenticated)
+            {
+                return View();
+            }
+            return RedirectToAction("Login", "Account");
         }
         public ActionResult Index1()
         {
 
             ViewBag.Products = getdetails();
-            return View();
+            if (Request.IsAuthenticated)
+            {
+                return View();
+            }
+            return RedirectToAction("Login", "Account");
 
         }
 
@@ -47,8 +58,12 @@ namespace QuikMeds.Controllers
 
             }
             ViewBag.Products = products;
-
-            return View("Index1");
+            if (Request.IsAuthenticated)
+            {
+                return View("Index1");
+            }
+            return RedirectToAction("Login", "Account");
+            
         }
 
         public ActionResult Contents(string discription)
@@ -56,11 +71,15 @@ namespace QuikMeds.Controllers
             List<Product> products;
             if (discription == "")
             {
-                products = _ctx.Products.OrderBy(p => p.Category).ToList<Product>();
+
+                return RedirectToAction("Index");
             }
             else
             {
+                string a = User.Identity.GetUserName();
                 products = _ctx.Products.Where(p => p.Description == discription).ToList<Product>();
+                var patient = _ctx.Patients.Where(x => x.Email == a).ToList();
+                ViewBag.Patient = patient;
             }
             ViewBag.Products = products;
             return View("Index");
@@ -197,7 +216,7 @@ namespace QuikMeds.Controllers
         public ActionResult Search(string search)
         {
             List<Product> sub;
-            List<Product> product = _ctx.Products.Where(p => p.Brand.StartsWith(search)).ToList<Product>();
+            List<Product> product = _ctx.Products.Where(p => p.PName.StartsWith(search)).ToList<Product>();
             ViewBag.Products = product;
             sub = _ctx.Products.Where(s=>s.Category=="").ToList<Product>();
             ViewBag.substitute = sub;
@@ -205,17 +224,31 @@ namespace QuikMeds.Controllers
 
         }
 
-        public ActionResult Substitute(string category,string content,string brand)
+        public ActionResult Substitute(string category,string content,string PName)
         {
            
-            List<Product> product = _ctx.Products.Where(p => p.Brand==brand).ToList<Product>();
-            List <Product> substitute=_ctx.Products.Except(_ctx.Products.Where(p => p.Brand == brand))
-                                            .Where(p=>p.Category==category && p.Description == content).ToList<Product>();
+            List<Product> product = _ctx.Products.Where(p => p.PName==PName).ToList<Product>();
+      
+             List <Product> substitute=_ctx.Products.Except(_ctx.Products.Where(p => p.PName == PName))
+                                         .Where(p=>p.Category==category && p.Description==content ).ToList<Product>();
             ViewBag.substitute = substitute;
             ViewBag.Products = product;
 
             return View("Search");
         }
+         public ActionResult Substitute1(string category,string PName)
+        {
+           
+            List<Product> product = _ctx.Products.Where(p => p.PName==PName).ToList<Product>();
+      
+             List <Product> substitute=_ctx.Products.Except(_ctx.Products.Where(p => p.PName == PName))
+                                         .Where(p=>p.Category==category ).ToList<Product>();
+            ViewBag.substitute = substitute;
+            ViewBag.Products = product;
+
+            return View("Search");
+        }
+
 
         public static List<Product> getdetails()
         {

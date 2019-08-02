@@ -207,7 +207,29 @@ textarea {
                 background: #adbded;
                 border: 1px solid #ffffff;
             }
+    .list-item .substitut {
+        display: inline-block;
+        vertical-align: bottom;
+        margin-top: 10px;
+    }
 
+        .list-item .substitut a {
+            border: 1px solid #a13de5;
+            padding: 10px;
+            font-weight: bold;
+            font-size: .8em;
+            margin: 0;
+            cursor: pointer;
+            text-decoration: none;
+            text-transform: uppercase;
+            color: #000033;
+        }
+
+            .list-item .substitut a:hover {
+                color: #566b52;
+                background: #adbded;
+                border: 1px solid #ffffff;
+            }
     .list-item .p-price {
         color: #2c2144;
         background: rgba(173, 189, 237, 0.53);

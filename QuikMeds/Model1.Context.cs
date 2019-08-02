@@ -34,5 +34,6 @@ namespace QuikMeds
         public virtual DbSet<Supplier> Suppliers { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<Information> Information { get; set; }
+        public virtual DbSet<Patient> Patients { get; set; }
     }
 }

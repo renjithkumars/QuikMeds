@@ -20,6 +20,7 @@
         <AssociationConnector Association="CTXModel.FK_Order_Products_Products" ManuallyRouted="false" />
         <AssociationConnector Association="CTXModel.FK_Products_Suppliers" ManuallyRouted="false" />
         <AssociationConnector Association="CTXModel.FK_ShoppingCartData_Products" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="CTXModel.Patient" Width="1.5" PointX="7.375" PointY="7.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

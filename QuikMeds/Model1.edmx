@@ -67,6 +67,20 @@ warning 6002: The table/view 'CTX.dbo.Information' does not have a primary key d
           <Property Name="DeliveryDate" Type="datetime" Nullable="false" />
           <Property Name="CID" Type="int" Nullable="false" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CTX.dbo.Patient' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Patient">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="Tablet" />
+            <PropertyRef Name="Email" />
+            <PropertyRef Name="Description" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Tablet" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="Products">
           <Key>
             <PropertyRef Name="PID" />
@@ -212,6 +226,14 @@ warning 6002: The table/view 'CTX.dbo.Information' does not have a primary key d
     [Information].[Category] AS [Category], 
     [Information].[SID] AS [SID]
     FROM [dbo].[Information] AS [Information]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Patient" EntityType="Self.Patient" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Patient].[ID] AS [ID], 
+    [Patient].[Tablet] AS [Tablet], 
+    [Patient].[Email] AS [Email], 
+    [Patient].[Description] AS [Description]
+    FROM [dbo].[Patient] AS [Patient]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="FK_CustomerComments_Products" Association="Self.FK_CustomerComments_Products">
             <End Role="Products" EntitySet="Products" />
@@ -475,7 +497,20 @@ warning 6002: The table/view 'CTX.dbo.Information' does not have a primary key d
             <End Role="Products" EntitySet="Products" />
             <End Role="ShoppingCartData" EntitySet="ShoppingCartDatas" />
           </AssociationSet>
+          <EntitySet Name="Patients" EntityType="CTXModel.Patient" />
         </EntityContainer>
+        <EntityType Name="Patient">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="Tablet" />
+            <PropertyRef Name="Email" />
+            <PropertyRef Name="Description" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Tablet" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -595,6 +630,16 @@ warning 6002: The table/view 'CTX.dbo.Information' does not have a primary key d
                 <ScalarProperty Name="Additional_information" ColumnName="Additional_information" />
                 <ScalarProperty Name="Category" ColumnName="Category" />
                 <ScalarProperty Name="SID" ColumnName="SID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Patients">
+            <EntityTypeMapping TypeName="CTXModel.Patient">
+              <MappingFragment StoreEntitySet="Patient">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Tablet" ColumnName="Tablet" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

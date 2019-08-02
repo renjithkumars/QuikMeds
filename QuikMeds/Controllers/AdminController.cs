@@ -51,7 +51,7 @@ namespace QuikMeds.Controllers
                 catch (Exception) { }
 
             }
-            return View();
+            return View("Index");
         }
         public ActionResult Details()
         {
@@ -94,7 +94,7 @@ namespace QuikMeds.Controllers
 
 
             }
-            return View();
+            return View("Index");
         }
         public ActionResult Error()
         {
